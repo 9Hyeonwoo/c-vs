@@ -52,7 +52,6 @@ export class ProductAll extends React.Component { // eslint-disable-line react/p
 
   onTilesMore(id){
     if(this.props.ProductAll.productsList == undefined){
-      console.log("loading...")
     }
     else{
       if(id == 1){
@@ -74,8 +73,6 @@ export class ProductAll extends React.Component { // eslint-disable-line react/p
       allCard = (<div/>);
     }
     else{
-      console.log(this.props.ProductAll.productsList)
-      console.log("ALL LIST :", this.state.allList)
       allCard = this.state.allList.map((object, index) => {
         return (
           <Tile

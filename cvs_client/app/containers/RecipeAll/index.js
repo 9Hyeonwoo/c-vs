@@ -53,13 +53,11 @@ export class RecipeAll extends React.Component { // eslint-disable-line react/pr
   }
 
   render() {
-    console.log(this.state.imageError)
     var allCard;
     if(this.props.RecipeAll.recipesList == undefined){
       allCard = (<div/>);
     }
     else {
-      console.log(this.props.RecipeAll.recipesList)
       allCard = this.props.RecipeAll.recipesList.map((object, index) => {
         return(
           <Tile
@@ -92,7 +90,6 @@ export class RecipeAll extends React.Component { // eslint-disable-line react/pr
               <Image src={'http://13.209.25.111:8000'+obj.image}
                      style={(this.state.imageError.indexOf(idx) !== -1) ? {display: 'none'} : {display: 'flex'}}
                      onError={(e) => {
-                       console.log(this.state.imageError)
                        this.state.imageError.push(idx)
                        let newImageError = this.state.imageError
                        this.setState({imageError: newImageError})
@@ -130,7 +127,7 @@ export class RecipeAll extends React.Component { // eslint-disable-line react/pr
           <Section colorIndex='light-2'>
             <div style={{display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between'}}>
               <Heading align = 'start' tag='h2' style={{margin: '10px 40px 10px', color: '#383838'}}>레시피 목록</Heading>
-              <Anchor align='end' primary={true} reverse={true} onClick={() => {this.props.router.push(`/newRecipe`)}} style={{paddingTop: '5px', margin : '20px 40px', color: '#383838'}}>새 레시피 작성하기</Anchor>
+              <Anchor align='end' primary={true} reverse={true} onClick={() => {this.props.router.push(`/newRecipe`); this.setState({recipeOn: false})}} style={{paddingTop: '5px', margin : '20px 40px', color: '#383838'}}>새 레시피 작성하기</Anchor>
             </div>
             <Tiles>
               { allCard }

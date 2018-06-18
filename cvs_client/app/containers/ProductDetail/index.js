@@ -42,6 +42,7 @@ export class ProductDetail extends React.Component { // eslint-disable-line reac
       rating: null,
       reviewOn: false,
       reviewId: 0,
+      imageError: []
     }
   }
   componentWillMount() {
@@ -129,10 +130,18 @@ export class ProductDetail extends React.Component { // eslint-disable-line reac
       if(obj.id == this.state.reviewId){
         reviewDetail = obj.post.map((o, i) => {
           return(
-            <Box key={i} align='center' style={{padding: '60px', height: '500px'}}>
+            <Box key={i} align='center' justify='center' style={{padding: '60px', height: '500px'}}>
               <h3 style={{lineHeight: '1', marginBottom: '20px'}}>{obj.title}</h3>
               <div style={{display: 'flex'}}>
-                <Image style={{objectFit: 'contain'}} src={'http://13.209.25.111:8000'+o.image}/>
+                <Image
+                  style={(this.state.imageError.indexOf(idx) !== -1) ? {display: 'none'} : {objectFit: 'contain'}}
+                  src={'http://13.209.25.111:8000'+o.image}
+                  onError={(e) => {
+                    this.state.imageError.push(idx)
+                    let newImageError = this.state.imageError
+                    this.setState({imageError: newImageError})
+                  }}
+                />
               </div>
               <p style={{marginTop: '20px', marginBottom: '0px'}}>{o.content}</p>
             </Box>
@@ -222,7 +231,7 @@ export class ProductDetail extends React.Component { // eslint-disable-line reac
 
           {
             this.state.reviewOn &&
-            <Layer onClose={() => this.setState({reviewOn: false, reviewId: 0})} closer={true} align='center'
+            <Layer onClose={() => this.setState({reviewOn: false, reviewId: 0, imageError: []})} closer={true} align='center'
                    flush={true}>
               <Carousel persistentNav={false} autoplay={false}
                         style={{width: '800px', height: '500px', paddingBottom: '30px'}}>

@@ -46,16 +46,12 @@ export class NewRecipe extends React.Component { // eslint-disable-line react/pr
   }
 
   onClickDelete(item){
-    console.log("clicked!", item)
-    console.log(this.state.selectedItems);
     this.setState({selectedItems: this.state.selectedItems.filter(function(list) {
       return list !== item
   })});
   }
 
   componentWillReceiveProps (nextProps) {
-    console.log(this.props.isSuccessful)
-    console.log(nextProps.isSuccessful)
     if(!this.props.isSuccessful && nextProps.isSuccessful){
       this.props.router.push('/recipeAll')
     }
@@ -70,9 +66,6 @@ export class NewRecipe extends React.Component { // eslint-disable-line react/pr
       searchSuggestion=[];
 
     }
-    console.log("recipe title:", this.state.recipeTitle)
-    console.log("suggestion:",searchSuggestion)
-    console.log("SEL ITEM:",this.state.selectedItems)
     return (
       <div style={{margin: '0px 20px'}}>
         <Heading tag='h2'>새 레시피 작성</Heading>

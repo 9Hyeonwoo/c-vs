@@ -78,8 +78,6 @@ export class RecipeDetail extends React.Component { // eslint-disable-line react
     }
 
 
-
-    console.log(this.props.RecipeDetail.recipeDetail)
     return (
       <div>
         <div style={{flexDirection: 'row', display: 'flex', padding: '30px'}}>

@@ -36,12 +36,9 @@ export class SearchPage extends React.Component { // eslint-disable-line react/p
   }
 
   componentWillMount(){
-    console.log("PARAM ID:", this.props.params.id);
     if(this.props.params.id === undefined){
-      console.log("UNDEFINED PARAMETER ID")
     }
     else{
-      console.log("PARAM: ", this.props.params.id);
       this.props.searchProduct(this.props.params.id);
     }
 
@@ -49,7 +46,6 @@ export class SearchPage extends React.Component { // eslint-disable-line react/p
 
   onInputChange(event){
     this.setState({term: event.target.value});
-    console.log(event.target.value);
   }
 
   onEnter(item, selected){
@@ -70,7 +66,6 @@ export class SearchPage extends React.Component { // eslint-disable-line react/p
         );
       }
       else {
-        console.log(this.props.searchResult.results)
         resultCard = this.props.searchResult.results.map((object, index) => {
           return (
             <Tile

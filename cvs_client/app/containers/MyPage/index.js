@@ -46,11 +46,6 @@ export class MyPage extends React.Component { // eslint-disable-line react/prefe
   }
 
   render() {
-    console.log(this.props.commentsList)
-    console.log(this.props.reviewsList)
-    console.log(this.props.recipesList)
-    console.log(this.props.loginResult)
-
     let reviewDetail = [];
     if (this.state.reviewId != 0) {
       this.props.reviewsList.find((obj, idx) => {
@@ -60,7 +55,15 @@ export class MyPage extends React.Component { // eslint-disable-line react/prefe
               <Box key={i} align='center' justify='center' style={{padding: '60px', height: '500px'}}>
                 <h3 style={{lineHeight: '1', marginBottom: '20px'}}>{obj.title}</h3>
                 <div style={{display: 'flex'}}>
-                  <Image style={{objectFit: 'contain'}} src={'http://13.209.25.111:8000' + o.image}/>
+                  <Image
+                    style={(this.state.imageError.indexOf(idx) !== -1) ? {display: 'none'} : {objectFit: 'contain'}}
+                    src={'http://13.209.25.111:8000' + o.image}
+                    onError={(e) => {
+                      this.state.imageError.push(idx)
+                      let newImageError = this.state.imageError
+                      this.setState({imageError: newImageError})
+                    }}
+                  />
                 </div>
                 <p style={{marginTop: '20px', marginBottom: '0px'}}>{o.content}</p>
               </Box>
@@ -108,7 +111,6 @@ export class MyPage extends React.Component { // eslint-disable-line react/prefe
               <Image src={'http://13.209.25.111:8000'+obj.image}
                      style={(this.state.imageError.indexOf(idx) !== -1) ? {display: 'none'} : {display: 'flex'}}
                      onError={(e) => {
-                       console.log(this.state.imageError)
                        this.state.imageError.push(idx)
                        let newImageError = this.state.imageError
                        this.setState({imageError: newImageError})
@@ -129,7 +131,11 @@ export class MyPage extends React.Component { // eslint-disable-line react/prefe
                 return (
                   <ListItem justify='between'
                             separator='horizontal' style={{borderBottom: '1px solid rgba(0, 0, 0, 0.15)', padding: 3}}>
-                    <Image style={{height: '50px', width: '50px'}} fit='contain' size='small' src={obj.image}/>
+                    <Image
+                      style={{height: '50px', width: '50px'}}
+                      fit='contain' size='small'
+                      src={obj.image}
+                    />
                     <span>{obj.name}</span>
                   </ListItem>
                 )
@@ -145,7 +151,7 @@ export class MyPage extends React.Component { // eslint-disable-line react/prefe
         <div style={{margin: '0 25px'}}>
           {
             this.state.reviewOn &&
-            <Layer onClose={() => this.setState({reviewOn: false, reviewId: 0})} closer={true} align='center'
+            <Layer onClose={() => this.setState({reviewOn: false, reviewId: 0, imageError: []})} closer={true} align='center'
                    flush={true}>
               <Carousel persistentNav={false} autoplay={false}
                         style={{width: '800px', height: '500px', paddingBottom: '30px'}}>
