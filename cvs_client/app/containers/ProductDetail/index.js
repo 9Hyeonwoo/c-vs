@@ -25,7 +25,10 @@ import Anchor from 'grommet/components/Anchor'
 import List from 'grommet/components/List'
 import ListItem from 'grommet/components/ListItem'
 import RadioButton from 'grommet/components/RadioButton'
-
+import Layer from 'grommet/components/Layer'
+import { Carousel } from 'grommet';
+import Box from 'grommet/components/Box'
+import Article from 'grommet/components/Article'
 
 const manufacturer = {'CU': 'CU', 'GS': 'GS25', 'SE': 'SEVEN ELEVEN'}
 export class ProductDetail extends React.Component { // eslint-disable-line react/prefer-stateless-function
@@ -34,6 +37,8 @@ export class ProductDetail extends React.Component { // eslint-disable-line reac
     this.state = {
       relatedRequestDone: false,
       rating: null,
+      reviewOn: false,
+      reviewId: 0,
     }
   }
   componentWillMount() {
@@ -88,6 +93,23 @@ export class ProductDetail extends React.Component { // eslint-disable-line reac
       })
     }
 
+    var reviewDetail;
+    if(this.state.reviewId != 0){
+      this.props.reviewsList.find((obj, idx) => {
+      if(obj.id == this.state.reviewId){
+        reviewDetail = obj.post.map((o, i) => {
+          return(
+            <Box key={i} align='center' style={{margin: '30px'}}>
+              <h3>{obj.title}</h3>
+              <Image src={'http://13.209.25.111:8000'+o.image}/>
+              <p>{o.content}</p>
+            </Box>
+          )
+        })
+      }
+    })
+    }
+
     return (
       <div style={{margin: '0 20px'}}>
         <div style={{flexDirection: 'row', display: 'flex', padding: '30px'}}>
@@ -140,13 +162,23 @@ export class ProductDetail extends React.Component { // eslint-disable-line reac
                       <h4 style={{whiteSpace: 'nowrap', fontSize: 20, overflow: 'hidden', textOverflow: 'ellipsis', marginBottom: 0}}>{object.profile_content}</h4>
                     }
                     key = {index}
-                    //onClick={() => {this.props.router.push(`/productDetail/${object.id}`); location.reload();}}
+                    onClick={() => {this.setState({reviewOn: true, reviewId: object.id})}}
                   />
                 </Tile>
               )
             })
           }
         </Tiles>
+
+        {
+          this.state.reviewOn && 
+          <Layer onClose={() => this.setState({reviewOn: false, reviewId: 0})} closer={true} align='center' flush={true} >
+            <Carousel persistentNav={false} autoplay={false} style={{width: 'auto', height: 'auto'}}>
+              {reviewDetail}
+            </Carousel>
+          </Layer>
+        }
+
         <div style={{display: 'flex', justifyContent:'center', width: '100%'}}>
           <Form style={{display: 'flex', flexDirection: 'column', alignItems: 'center', border: '1px solid rgba(0, 0, 0, 0.15)', padding: '10px', width: '80%'}}>
             <FormField label='짧은 상품평' style={{border: '0px', borderBottom: '1px solid rgba(0,0,0,0.15)'}}>

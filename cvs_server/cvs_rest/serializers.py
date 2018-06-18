@@ -8,7 +8,7 @@ class UserSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = CustomUser
-        fields = ('id', 'username', 'created', 'email', 'comment_set', 'review_set')
+        fields = ('id', 'username', 'created', 'email', 'comment_set', 'review_set', 'recipe_set')
 
 #serializes only pk and username
 class UserIdSerializer(serializers.ModelSerializer) :

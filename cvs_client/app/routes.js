@@ -210,6 +210,26 @@ export default function createRoutes(store) {
         importModules.catch(errorLoading);
       },
     }, {
+      path: '/recipeDetail/:id',
+      name: 'recipeDetail',
+      getComponent(nextState, cb) {
+        const importModules = Promise.all([
+          import('containers/RecipeDetail/reducer'),
+          import('containers/RecipeDetail/sagas'),
+          import('containers/RecipeDetail'),
+        ]);
+
+        const renderRoute = loadModule(cb);
+
+        importModules.then(([reducer, sagas, component]) => {
+          injectReducer('recipeDetail', reducer.default);
+          injectSagas(sagas.default);
+          renderRoute(component);
+        });
+
+        importModules.catch(errorLoading);
+      },
+    }, {
       path: '*',
       name: 'notfound',
       getComponent(nextState, cb) {

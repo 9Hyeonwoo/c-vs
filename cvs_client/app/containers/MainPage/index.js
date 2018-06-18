@@ -9,7 +9,6 @@ import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import {bindActionCreators} from 'redux';
-import {searchProduct} from './actions'
 import makeSelectMainPage from './selectors';
 import messages from './messages';
 import App from 'grommet/components/App';
@@ -30,6 +29,7 @@ import Card from 'grommet/components/Card';
 import Anchor from 'grommet/components/Anchor';
 import CustomHeader from '../../components/CustomHeader';
 import MediaQuery from 'react-responsive';
+import { getPopularProduct } from './actions';
 
 // How to load image?
 
@@ -38,15 +38,20 @@ export class MainPage extends React.Component {
   constructor(props){
     super(props);
 
-    this.state = {term: ''};
+    this.state = {
+      term: ''
+    };
     this.onInputChange = this.onInputChange.bind(this);
     this.onEnter = this.onEnter.bind(this);
+  }
+
+  componentWillMount(){
+    this.props.getPopularProducts();
   }
 
   onInputChange(event){
     this.setState({term: event.target.value});
     console.log(event.target.value);
-    //this.props.searchProduct(this.state.term);
   }
 
   onEnter(item, selected){
@@ -93,21 +98,14 @@ export class MainPage extends React.Component {
   }
 }
 
-MainPage.propTypes = {
-  dispatch: PropTypes.func.isRequired,
-};
 
 const mapStateToProps = createStructuredSelector({
   MainPage: makeSelectMainPage(),
 });
 
-// function mapStateToProps(state){
-//   return {products: state.products};
-// }
-
 function mapDispatchToProps(dispatch) {
   return {
-    dispatch,
+    getPopularProducts: () => dispatch(getPopularProduct())
   };
 }
 
