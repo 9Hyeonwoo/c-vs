@@ -17,7 +17,7 @@ function mainPageReducer(state = initialState, action) {
     case DEFAULT_ACTION:
       return state;
     case POPULAR_LIST_RECEIVED:
-      return fromJS({...state, popularList: action.popularList});
+      return fromJS({...state.toJS(), popularList: action.popularList});
     default:
       return state;
   }

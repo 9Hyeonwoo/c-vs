@@ -40,7 +40,8 @@ export function* sendRequestPost (recipe, posts) {
       const form = new FormData()
       form.set('recipe_id', recipeData.id)
       form.set('content', posts[i].content)
-      form.set('image', posts[i].image)
+      if(posts[i].image)
+        form.set('image', posts[i].image)
       try {
         const postData = yield call(request, postURL, {
           method: 'POST',

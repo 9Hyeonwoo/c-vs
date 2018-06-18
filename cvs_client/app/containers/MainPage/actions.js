@@ -20,11 +20,11 @@ export function getPopularProduct() {
   return{
     type: GET_POPULAR_PRODUCTS,
   };
-  
+
 }
 
 export function popularListReceived(popularList) {
-  return{
+  return {
     type: POPULAR_LIST_RECEIVED,
     popularList: popularList
   }

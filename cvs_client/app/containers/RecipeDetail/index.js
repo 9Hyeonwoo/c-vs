@@ -36,7 +36,7 @@ export class RecipeDetail extends React.Component { // eslint-disable-line react
   componentWillMount(){
     this.props.getRecipeDetail(this.props.params.id)
   }
-  
+
   render() {
     var recipeDetail = this.props.RecipeDetail.recipeDetail ? this.props.RecipeDetail.recipeDetail : ''
 
@@ -48,7 +48,7 @@ export class RecipeDetail extends React.Component { // eslint-disable-line react
     else {
         ingredients = recipeDetail.ingredients.map((obj, idx) => {
           return(
-            
+
             <ListItem justify='between'
               separator='horizontal' style={{width: '700px', borderBottom: '1px solid rgba(0, 0, 0, 0.15)', padding: 3}}>
               <Image style={{height: '50px', width: '50px'}} fit='contain' size='small' src={obj.image}/>
@@ -56,13 +56,13 @@ export class RecipeDetail extends React.Component { // eslint-disable-line react
                 {obj.name}
               </span>
             </ListItem>
-            
+
           )})
           }
-        
-    
 
-    var recipeList
+
+
+    let recipeList
     if(this.props.RecipeDetail.recipeDetail == undefined) {
       recipeList= (<p>NO RESULT AVAILABLE</p>);
     }
@@ -96,7 +96,7 @@ export class RecipeDetail extends React.Component { // eslint-disable-line react
               <div style={{display: 'flex', flexDirection: 'column'}}>
                 <h3 style={{marginBottom: '10px'}}>작성자</h3>
                 {
-                  recipeDetail.user_id ? 
+                  recipeDetail.user_id ?
                     <h3 style={{marginBottom: '0'}}>{recipeDetail.user_id.username}</h3>:
                     <h3 style={{marginBottom: '0'}}>LOADING</h3>
                 }

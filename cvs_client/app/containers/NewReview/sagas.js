@@ -23,7 +23,8 @@ export function* sendRequestPost (review, posts) {
       const form = new FormData()
       form.set('review_id', reviewData.id)
       form.set('content', posts[i].content)
-      form.set('image', posts[i].image)
+      if(posts[i].image)
+        form.set('image', posts[i].image)
       try {
         const postData = yield call(request, postURL, {
           method: 'POST',

@@ -7,7 +7,7 @@ const url = 'http://13.209.25.111:8000/recipes/'
 
 export function* requestRecipeDetail(id){
   try {
-    const data = yield call(request, url + id)
+    const data = yield call(request, url + id +'/')
     yield put(actions.receivedRecipeDetail(data))
   }
   catch (error) {

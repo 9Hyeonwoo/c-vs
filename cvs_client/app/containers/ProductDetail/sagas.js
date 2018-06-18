@@ -2,7 +2,7 @@ import { take, call, put, select, fork } from 'redux-saga/effects';
 import * as actions from './actions'
 import {
   REQUEST_PRODUCT_DETAIL, REQUEST_RELATED_PRODUCTS, POST_REQUEST_COMMENT, GET_REQUEST_COMMENT,
-  GET_REQUEST_REVIEWS
+  GET_REQUEST_REVIEWS, GET_POPULAR_PRODUCTS
 } from './constants'
 import request from 'utils/request'
 
@@ -14,7 +14,7 @@ export const getUserInfo = (state) => state.get('global').toJS().loginResult;
 
 export function* requestProductDetail(id) {
   try {
-    const data = yield call(request, url + id + '/')
+    const data = yield call(request, url + id)
     yield put(actions.receivedProductDetail(data))
   }
   catch (error) {
@@ -110,12 +110,32 @@ export function* watchGetRequestReviews() {
   }
 }
 
+
+export function* getPopularProducts() {
+  try {
+    const data = yield call(request, url+'?ordering=-rating_avg')
+    yield put(actions.popularListReceived(data))
+  }
+  catch (error) {
+    yield put(actions.popularListReceived())
+  }
+}
+
+
+export function* watchGetPopularProducts() {
+  while (true) {
+    const {} = yield take(GET_POPULAR_PRODUCTS)
+    yield call(getPopularProducts)
+  }
+}
+
 export function* defaultSaga() {
   yield fork(watchRequestProductDetail)
   yield fork(watchRequestRelatedProducts)
   yield fork(watchPostRequestComment)
   yield fork(watchGetRequestComment)
   yield fork(watchGetRequestReviews)
+  yield fork(watchGetPopularProducts)
 }
 
 // All sagas to be loaded

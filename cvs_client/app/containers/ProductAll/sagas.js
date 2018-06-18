@@ -4,11 +4,11 @@ import { GET_ALL_PRODUCTS } from './constants'
 import request from 'utils/request'
 
 
-const url = 'http://13.209.25.111:8000/products/'
+const url = 'http://13.209.25.111:8000/products/?ordering=-rating_avg'
 
 export function* getAllProducts(id) {
   try {
-    const data = yield call(request, url+'?page='+id)
+    const data = yield call(request, url+'&page='+id)
     yield put(actions.productsListReceived(data))
   }
   catch (error) {

@@ -20,7 +20,7 @@ export default function createRoutes(store) {
   return [
     {
       path: '/',
-      name: 'home',
+      name: 'mainPage',
       getComponent(nextState, cb) {
         const importModules = Promise.all([
           import('containers/MainPage/reducer'),
@@ -31,7 +31,7 @@ export default function createRoutes(store) {
         const renderRoute = loadModule(cb);
 
         importModules.then(([reducer, sagas, component]) => {
-          injectReducer('home', reducer.default);
+          injectReducer('mainPage', reducer.default);
           injectSagas(sagas.default);
 
           renderRoute(component);
@@ -223,6 +223,26 @@ export default function createRoutes(store) {
 
         importModules.then(([reducer, sagas, component]) => {
           injectReducer('recipeDetail', reducer.default);
+          injectSagas(sagas.default);
+          renderRoute(component);
+        });
+
+        importModules.catch(errorLoading);
+      },
+    }, {
+      path: '/myPage',
+      name: 'myPage',
+      getComponent(nextState, cb) {
+        const importModules = Promise.all([
+          import('containers/MyPage/reducer'),
+          import('containers/MyPage/sagas'),
+          import('containers/MyPage'),
+        ]);
+
+        const renderRoute = loadModule(cb);
+
+        importModules.then(([reducer, sagas, component]) => {
+          injectReducer('myPage', reducer.default);
           injectSagas(sagas.default);
           renderRoute(component);
         });

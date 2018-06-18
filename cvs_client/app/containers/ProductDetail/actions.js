@@ -14,6 +14,8 @@ import {
   GET_REQUEST_COMMENT,
   RECEIVED_COMMENTS,
   GET_REQUEST_REVIEWS,
+  GET_POPULAR_PRODUCTS,
+  POPULAR_LIST_RECEIVED,
   RECEIVED_REVIEWS
 } from './constants';
 
@@ -86,5 +88,19 @@ export function receivedReviews (reviewsList) {
   return {
     type: RECEIVED_REVIEWS,
     reviewsList: reviewsList
+  }
+}
+
+export function getPopularProduct() {
+  return{
+    type: GET_POPULAR_PRODUCTS,
+  };
+
+}
+
+export function popularListReceived(popularList) {
+  return {
+    type: POPULAR_LIST_RECEIVED,
+    popularList: popularList
   }
 }

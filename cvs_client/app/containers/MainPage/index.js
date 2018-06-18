@@ -27,9 +27,9 @@ import Tiles from 'grommet/components/Tiles';
 import Tile from 'grommet/components/Tile';
 import Card from 'grommet/components/Card';
 import Anchor from 'grommet/components/Anchor';
-import CustomHeader from '../../components/CustomHeader';
 import MediaQuery from 'react-responsive';
 import { getPopularProduct } from './actions';
+import defaultImage from '../../defaultimage.png'
 
 // How to load image?
 
@@ -69,7 +69,7 @@ export class MainPage extends React.Component {
             backgroundColorIndex='dark' size='small'>
             <Box direction='row' justify='center' align='center'>
               <Section align='center' style={{alignItems: 'center', justifyContent: 'center', height: 300}}>
-              <Heading margin='none' strong = {true} tag = 'h2'>제품 및 레시피 검색</Heading>
+              <Heading margin='none' strong = {true} tag = 'h2'>제품 이름으로 검색하기</Heading>
                 <Box colorIndex='light-1' style={{margin: '20px 0px'}}>
                 <MediaQuery query="(min-device-width: 1024px)">
                 <Search style={{width: '700px'}} inline={true} placeHolder='검색' value={this.state.term} onDOMChange={this.onInputChange}
@@ -84,13 +84,44 @@ export class MainPage extends React.Component {
           </Hero>
 
           <Box colorIndex='light-2'>
-          <Heading align = 'start' tag='h2' style={{margin: '40px 40px 20px', color: '#383838'}}>인기 제품</Heading>
-          <Tiles fill={false} flush={false} size='small'>
-          <Tile> <Card thumbnail='http://cdn2.bgfretail.com/bgfbrand/files/product/5D8998FE3B78430B99641CCA0C3F3506.jpg'
-                label='Sample Label' heading='Sample Heading' description='Sample description providing more details.' onClick = {() => alert("clicked")} colorIndex = 'light-1'
-                /> </Tile>
+            <div style={{display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between'}}>
+              <Heading align = 'start' tag='h2' style={{margin: '30px 40px 10px', color: '#383838'}}>인기 제품</Heading>
+              <Anchor align='end' label='Label' primary={true} reverse={true} path='/productAll' style={{paddingTop: '5px', margin : '30px 40px', color: '#383838'}}>전체 제품 보기</Anchor>
+            </div>
+            <Tiles fill={false} flush={false} justify='center' size='small' style={{display: 'flex', justifyContent: 'center'}}>
+            {
+              this.props.popularList ?
+                (
+                  this.props.popularList.results ?
+                    this.props.popularList.results.slice(0,10).map((object, index) => {
+                      return (
+                        <Tile
+                          pad='medium'
+                          style={{width: '18%', maxWidth: '18%', padding: '0px'}}
+                          key={index}
+                        >
+                          <Card
+                            colorIndex = 'light-1'
+                            thumbnail = {<Image fit='contain' src={object.image} onError={(e) => e.target.src = defaultImage} />}
+                            label={
+                              <span>{object.manufacturer}</span>
+                            }
+                            heading = {
+                              <h4 style={{whiteSpace: 'nowrap', fontSize: 20, overflow: 'hidden', textOverflow: 'ellipsis', marginBottom: 0}}>{object.name}</h4>
+                            }
+                            key = {index}
+                            onClick={() => {this.props.router.push(`/productDetail/${object.id}`); location.reload();}}
+                          />
+                        </Tile>
+                      )
+                    }) :
+                    <div/>
+                ) :
+                (
+                  <div/>
+                )
+            }
           </Tiles>
-          <Anchor align='end' label='Label' primary={true} reverse={true} path='/productAll' style={{margin : '20px 40px', color: '#383838'}}>전체 제품 보기</Anchor>
           </Box>
         </Article>
       </App>
@@ -99,9 +130,10 @@ export class MainPage extends React.Component {
 }
 
 
-const mapStateToProps = createStructuredSelector({
-  MainPage: makeSelectMainPage(),
-});
+const mapStateToProps = (state) => {
+  return ({
+    popularList: state.get('mainPage').toJS().popularList,
+  })}
 
 function mapDispatchToProps(dispatch) {
   return {

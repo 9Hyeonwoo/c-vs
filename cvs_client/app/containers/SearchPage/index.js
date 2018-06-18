@@ -24,6 +24,7 @@ import Card from 'grommet/components/Card';
 import Tile from 'grommet/components/Tile';
 import Tiles from 'grommet/components/Tiles';
 import Image from 'grommet/components/Image';
+import defaultImage from '../../defaultimage.png';
 
 export class SearchPage extends React.Component { // eslint-disable-line react/prefer-stateless-function
   constructor(props){
@@ -79,7 +80,7 @@ export class SearchPage extends React.Component { // eslint-disable-line react/p
             >
               <Card
                 colorIndex='light-1'
-                thumbnail={<Image src={object.image}/>}
+                thumbnail={<Image src={object.image} onError={(e) => e.target.src = defaultImage}/>}
                 label={
                   <span>{object.manufacturer}</span>
                 }
