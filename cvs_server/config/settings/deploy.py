@@ -7,3 +7,5 @@ ALLOWED_HOSTS = config_secret_deploy['django']['allowed_hosts']
 
 # WSGI application
 WSGI_APPLICATION = 'config.wsgi.deploy.application'
+
+CORS_ORIGIN_ALLOW_ALL = True
