@@ -86,7 +86,7 @@ export class MainPage extends React.Component {
           <Box colorIndex='light-2'>
             <div style={{display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between'}}>
               <Heading align = 'start' tag='h2' style={{margin: '30px 40px 10px', color: '#383838'}}>인기 제품</Heading>
-              <Anchor align='end' label='Label' primary={true} reverse={true} path='/productAll' style={{paddingTop: '5px', margin : '30px 40px', color: '#383838'}}>전체 제품 보기</Anchor>
+              <Anchor align='end' label='Label' primary={true} reverse={true} onClick={() => {this.props.router.push(`/productAll`)}} style={{paddingTop: '5px', margin : '30px 40px', color: '#383838'}}>전체 제품 보기</Anchor>
             </div>
             <Tiles fill={false} flush={false} justify='center' size='small' style={{display: 'flex', justifyContent: 'center'}}>
             {
