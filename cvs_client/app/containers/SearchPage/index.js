@@ -75,7 +75,7 @@ export class SearchPage extends React.Component { // eslint-disable-line react/p
             >
               <Card
                 colorIndex='light-1'
-                thumbnail={<Image src={object.image} onError={(e) => e.target.src = defaultImage}/>}
+                thumbnail={<Image src={object.image} style={{height: '17vw', objectFit: 'contain'}} onError={(e) => e.target.src = defaultImage}/>}
                 label={
                   <span>{object.manufacturer}</span>
                 }
@@ -119,7 +119,7 @@ export class SearchPage extends React.Component { // eslint-disable-line react/p
           </Box>
         </Article>
         <Box colorIndex='light-2' style={{marginTop: 10}}>
-          <Tiles>{resultCard}</Tiles>
+          <Tiles responsive='false'>{resultCard}</Tiles>
         </Box>
       </div>
     );

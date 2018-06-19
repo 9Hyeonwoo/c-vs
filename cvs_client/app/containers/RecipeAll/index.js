@@ -88,7 +88,7 @@ export class RecipeAll extends React.Component { // eslint-disable-line react/pr
           <Box key={idx} align='center' basis='full' justify='center' style={{margin: '30px', display: 'flex', width: '100%', height: '440px'}}>
             {
               <Image src={'http://13.209.25.111:8000'+obj.image}
-                     style={(this.state.imageError.indexOf(idx) !== -1) ? {display: 'none'} : {display: 'flex'}}
+                     style={(this.state.imageError.indexOf(idx) !== -1) ? {display: 'none'} : {display: 'flex', maxHeight: '90%', objectFit: 'contain'}}
                      onError={(e) => {
                        this.state.imageError.push(idx)
                        let newImageError = this.state.imageError
@@ -129,7 +129,7 @@ export class RecipeAll extends React.Component { // eslint-disable-line react/pr
               <Heading align = 'start' tag='h2' style={{margin: '10px 40px 10px', color: '#383838'}}>레시피 목록</Heading>
               <Anchor align='end' primary={true} reverse={true} onClick={() => {this.props.router.push(`/newRecipe`); this.setState({recipeOn: false})}} style={{paddingTop: '5px', margin : '20px 40px', color: '#383838'}}>새 레시피 작성하기</Anchor>
             </div>
-            <Tiles>
+            <Tiles responsive='false'>
               { allCard }
             </Tiles>
           </Section>

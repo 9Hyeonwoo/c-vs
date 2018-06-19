@@ -63,7 +63,7 @@ export class NewReview extends React.Component { // eslint-disable-line react/pr
                 <label>
                   <div style={{width: '200px', height: '200px', backgroundColor: '#C0C0C0', display: 'flex', justifyContent: 'center', alignItems: 'center', marginRight: '20px'}}>
                     {this.state.posts[key].image ?
-                      <img src={this.state.posts[key].imageURL}/>
+                      <img style={{height: '200px', width: '200px', objectFit: 'contain'}} src={this.state.posts[key].imageURL}/>
                       : <Add style={{width: '50px', height: '50px'}}/>
                     }
 

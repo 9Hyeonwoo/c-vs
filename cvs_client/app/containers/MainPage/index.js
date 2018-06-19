@@ -88,7 +88,7 @@ export class MainPage extends React.Component {
               <Heading align = 'start' tag='h2' style={{margin: '30px 40px 10px', color: '#383838'}}>인기 제품</Heading>
               <Anchor align='end' label='Label' primary={true} reverse={true} onClick={() => {this.props.router.push(`/productAll`)}} style={{paddingTop: '5px', margin : '30px 40px', color: '#383838'}}>전체 제품 보기</Anchor>
             </div>
-            <Tiles fill={false} flush={false} justify='center' size='small' style={{display: 'flex', justifyContent: 'center'}}>
+            <Tiles fill={false} flush={false} responsive='false' justify='center' size='small' style={{display: 'flex', justifyContent: 'center'}}>
             {
               this.props.popularList ?
                 (
@@ -97,12 +97,12 @@ export class MainPage extends React.Component {
                       return (
                         <Tile
                           pad='medium'
-                          style={{width: '18%', maxWidth: '18%', padding: '0px'}}
+                          style={{width: '15%', maxWidth: '18%', padding: '0px'}}
                           key={index}
                         >
                           <Card
                             colorIndex = 'light-1'
-                            thumbnail = {<Image fit='contain' src={object.image} onError={(e) => e.target.src = defaultImage} />}
+                            thumbnail = {<Image fit='contain' style={{height: '16vw'}} src={object.image} onError={(e) => e.target.src = defaultImage} />}
                             label={
                               <span>{object.manufacturer}</span>
                             }

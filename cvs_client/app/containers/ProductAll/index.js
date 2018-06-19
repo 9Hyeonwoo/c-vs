@@ -82,9 +82,9 @@ export class ProductAll extends React.Component { // eslint-disable-line react/p
           >
             <Card
               colorIndex = 'light-1'
-              thumbnail = {<Image fit='contain' src={object.image} onError={(e) => e.target.src = defaultImage} />}
+              thumbnail = {<Image style={{height: '17vw', objectFit: 'contain'}} src={object.image} onError={(e) => e.target.src = defaultImage} />}
               label={
-                <span>{object.manufacturer}</span>
+                <span style={{whiteSpace: 'nowrap'}}>{object.manufacturer}</span>
               }
               heading = {
                 <h4 style={{whiteSpace: 'nowrap', fontSize: 20, overflow: 'hidden', textOverflow: 'ellipsis', marginBottom: 0}}>{object.name}</h4>
@@ -101,7 +101,7 @@ export class ProductAll extends React.Component { // eslint-disable-line react/p
       <div>
         <Article>
           <Section colorIndex='light-2'>
-            <Tiles onMore={() => this.onTilesMore(this.state.id)}>
+            <Tiles responsive='false' onMore={() => this.onTilesMore(this.state.id)}>
               { allCard }
             </Tiles>
           </Section>

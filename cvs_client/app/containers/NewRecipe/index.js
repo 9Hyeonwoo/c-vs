@@ -21,6 +21,7 @@ import TextInput from 'grommet/components/TextInput'
 import FormTrashIcon from 'grommet/components/icons/base/FormTrash'
 import Edit from 'grommet/components/icons/base/Edit'
 import Add from 'grommet/components/icons/base/Add'
+import Box from 'grommet/components/Box'
 
 export class NewRecipe extends React.Component { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
@@ -76,7 +77,7 @@ export class NewRecipe extends React.Component { // eslint-disable-line react/pr
           </FormField>
           <Title style={{marginTop: '30px'}}>재료 추가하기</Title>
           <div style={{margin: '20px 20px', display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
-            <div style={{display: 'flex', margin: '50px 20px 0 20px', justifyContent: 'center'}}>
+            <div style={{display: 'flex', margin: '50px 0 50px 0', justifyContent: 'center'}}>
               <Search inline={true}
                       value={(this.state.selectedItem) ? this.state.selectedItem[0].name : this.state.searchText}
                         onSelect={(item, selected) => {
@@ -85,7 +86,7 @@ export class NewRecipe extends React.Component { // eslint-disable-line react/pr
                       }}
                       onDOMChange={this.onSearchInputChange}
                       suggestions={searchSuggestion}
-                      style={{width: '600px', display: 'flex'}}
+                      style={{width: '100%'}}
               />
               <Button primary={true} plain={false} style={{ width: '100px', backgroundColor: !this.state.selectedItem && 'gray', border: '0px', boxShadow: '0 0 0 0' }} label={'ADD'} onClick={() => {
                 if(this.state.selectedItem) {
@@ -97,19 +98,24 @@ export class NewRecipe extends React.Component { // eslint-disable-line react/pr
                   })})}
               }}/>
             </div>
-            <List style={{width: '700px', marginBottom: '50px'}}>
-              {
-                this.state.selectedItems.map((item, key) => {
-                  return (
-                    <ListItem key={key} separator='horizontal' style={{borderBottom: '1px solid rgba(0, 0, 0, 0.15)', padding: 3}}>
-                      <Image style={{height: '50px', width: '50px'}} fit='contain' size='small' src={item.image}/>
-                      <span>{item.name}</span>
-                      <Button onClick={() => this.onClickDelete(item)}><FormTrashIcon/></Button>
-                    </ListItem>
-                  )
-                })
+            <Box style={{width: '100%'}}>
+              {this.state.selectedItems.length > 0 &&
+                <h3 style={{marginBottom: '10px'}}>재료 목록</h3>
               }
-            </List>
+              <List style={{width: '100%', marginBottom: '50px'}}>
+                {
+                  this.state.selectedItems.map((item, key) => {
+                    return (
+                      <ListItem key={key} separator='horizontal' style={{borderBottom: '1px solid rgba(0, 0, 0, 0.15)', padding: 3}}>
+                        <Image style={{height: '50px', width: '50px'}} fit='contain' size='small' src={item.image}/>
+                        <span>{item.name}</span>
+                        <Button onClick={() => this.onClickDelete(item)}><FormTrashIcon/></Button>
+                      </ListItem>
+                    )
+                  })
+                }
+              </List>
+            </Box>
           </div>
           <Title>만드는 법 작성</Title>
           {this.state.posts.map((item, key) => {
@@ -118,7 +124,7 @@ export class NewRecipe extends React.Component { // eslint-disable-line react/pr
                 <label>
                   <div style={{width: '200px', height: '200px', backgroundColor: '#C0C0C0', display: 'flex', justifyContent: 'center', alignItems: 'center', marginRight: '20px'}}>
                     {this.state.posts[key].image ?
-                      <img src={this.state.posts[key].imageURL}/>
+                      <img style={{height: '200px', width: '200px', objectFit: 'contain'}} src={this.state.posts[key].imageURL}/>
                       : <Add style={{width: '50px', height: '50px'}}/>
                     }
 

@@ -84,7 +84,7 @@ export class ProductDetail extends React.Component { // eslint-disable-line reac
               colorIndex = 'light-1'
               textSize = 'small'
               thumbnail = {
-                <Image src={object.image} onError={(e) => e.target.src = defaultImage}/>
+                <Image style={{height: '17vw', objectFit: 'contain'}} src={object.image} onError={(e) => e.target.src = defaultImage}/>
               }
               label={
                 <span>{object.manufacturer}</span>
@@ -108,7 +108,7 @@ export class ProductDetail extends React.Component { // eslint-disable-line reac
               colorIndex = 'light-1'
               textSize = 'small'
               thumbnail = {
-                <Image src={object.image} onError={(e) => e.target.src = defaultImage}/>
+                <Image style={{height: '17vw', objectFit: 'contain'}} src={object.image} onError={(e) => e.target.src = defaultImage}/>
               }
               label={
                 <span>{object.manufacturer}</span>
@@ -134,7 +134,7 @@ export class ProductDetail extends React.Component { // eslint-disable-line reac
               <h3 style={{lineHeight: '1', marginBottom: '20px'}}>{obj.title}</h3>
               <div style={{display: 'flex'}}>
                 <Image
-                  style={(this.state.imageError.indexOf(idx) !== -1) ? {display: 'none'} : {objectFit: 'contain'}}
+                  style={(this.state.imageError.indexOf(idx) !== -1) ? {display: 'none'} : {objectFit: 'contain', maxHeight: '90%', objectFit: 'contain'}}
                   src={'http://13.209.25.111:8000'+o.image}
                   onError={(e) => {
                     this.state.imageError.push(idx)
@@ -180,15 +180,15 @@ export class ProductDetail extends React.Component { // eslint-disable-line reac
           </div>
           {
             (this.state && this.state.relatedRequestDone || (productDetail !== '' && !(productDetail.small_category || productDetail.large_category))) ?
-              <h3>{relatedProducts.length === 0 ? '인기 상품' : '유사 상품'}</h3> : <div/>
+              <h3>{relatedProductsList.length === 0 ? '인기 상품' : '유사 상품'}</h3> : <div/>
           }
-          <Tiles>{relatedCard}</Tiles>
+          <Tiles responsive='false'>{relatedCard}</Tiles>
           <div style={{display: 'flex', justifyContent: 'space-between'}}>
             <h3>리뷰</h3>
             <Anchor disabled={!this.props.loginResult} label='새 리뷰 쓰기'
                     href={this.props.loginResult && ('/newReview/' + this.props.params.id)}/>
           </div>
-          <Tiles>
+          <Tiles responsive='false'>
             {
               this.props.reviewsList &&
               this.props.reviewsList.slice(0, 3).map((object, index) => {
@@ -254,11 +254,21 @@ export class ProductDetail extends React.Component { // eslint-disable-line reac
               </FormField>
               <div
                 style={{display: 'flex', flexDirection: 'row', justifyContent: 'center', margin: '20px 0px 10px 48px'}}>
-                <RadioButton checked={this.state.rating >= 1} onChange={() => this.setState({rating: 1})}/>
-                <RadioButton checked={this.state.rating >= 2} onChange={() => this.setState({rating: 2})}/>
-                <RadioButton checked={this.state.rating >= 3} onChange={() => this.setState({rating: 3})}/>
-                <RadioButton checked={this.state.rating >= 4} onChange={() => this.setState({rating: 4})}/>
-                <RadioButton checked={this.state.rating >= 5} onChange={() => this.setState({rating: 5})}/>
+                <div style={{marginRight: '-24px'}}>
+                  <RadioButton checked={this.state.rating >= 1} onChange={() => this.setState({rating: 1})}/>
+                </div>
+                <div style={{marginRight: '-24px'}}>
+                  <RadioButton checked={this.state.rating >= 2} onChange={() => this.setState({rating: 2})}/>
+                </div>
+                <div style={{marginRight: '-24px'}}>
+                  <RadioButton checked={this.state.rating >= 3} onChange={() => this.setState({rating: 3})}/>
+                </div>
+                <div style={{marginRight: '-24px'}}>
+                  <RadioButton checked={this.state.rating >= 4} onChange={() => this.setState({rating: 4})}/>
+                </div>
+                <div style={{marginRight: '-24px'}}>
+                  <RadioButton checked={this.state.rating >= 5} onChange={() => this.setState({rating: 5})}/>
+                </div>
               </div>
               <div style={{width: '100%', display: 'flex', flexDirection: 'row', justifyContent: 'flex-end'}}>
                 <Anchor

@@ -56,7 +56,7 @@ export class MyPage extends React.Component { // eslint-disable-line react/prefe
                 <h3 style={{lineHeight: '1', marginBottom: '20px'}}>{obj.title}</h3>
                 <div style={{display: 'flex'}}>
                   <Image
-                    style={(this.state.imageError.indexOf(idx) !== -1) ? {display: 'none'} : {objectFit: 'contain'}}
+                    style={(this.state.imageError.indexOf(idx) !== -1) ? {display: 'none'} : {maxHeight: '90%', objectFit: 'contain'}}
                     src={'http://13.209.25.111:8000' + o.image}
                     onError={(e) => {
                       this.state.imageError.push(idx)
@@ -109,7 +109,7 @@ export class MyPage extends React.Component { // eslint-disable-line react/prefe
           <Box key={idx} align='center' basis='full' justify='center' style={{margin: '30px', display: 'flex', width: '100%', height: '440px'}}>
             {
               <Image src={'http://13.209.25.111:8000'+obj.image}
-                     style={(this.state.imageError.indexOf(idx) !== -1) ? {display: 'none'} : {display: 'flex'}}
+                     style={(this.state.imageError.indexOf(idx) !== -1) ? {display: 'none'} : {display: 'flex', maxHeight: '90%', objectFit: 'contain'}}
                      onError={(e) => {
                        this.state.imageError.push(idx)
                        let newImageError = this.state.imageError
@@ -187,7 +187,7 @@ export class MyPage extends React.Component { // eslint-disable-line react/prefe
               borderBottom: '1px solid #CCCCCC'
             }}>
               <h2 style={{marginBottom: '0px', fontWeight: 'bold'}}>R E V I E W S</h2>
-              <Tiles>
+              <Tiles responsive='false'>
                 {
                   this.props.reviewsList &&
                   this.props.reviewsList.map((object, index) => {
@@ -237,7 +237,7 @@ export class MyPage extends React.Component { // eslint-disable-line react/prefe
               borderBottom: '1px solid #CCCCCC'
             }}>
               <h2 style={{marginBottom: '0px', fontWeight: 'bold'}}>R E C I P E S</h2>
-              <Tiles>
+              <Tiles responsive='false'>
                 {recipeCard}
               </Tiles>
             </div>
